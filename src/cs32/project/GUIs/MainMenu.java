@@ -7,8 +7,15 @@
 package cs32.project.GUIs;
 
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
@@ -24,7 +31,47 @@ public class MainMenu extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         BorderPane bp = new BorderPane();
-        Scene scene = new Scene(bp, 200, 200);
+        
+        VBox vb = new VBox();
+        vb.setAlignment(Pos.CENTER);
+        
+        Label title = new Label("El Camino Student Used Textbook Portal");
+        title.setFont(new Font(28));
+        
+        HBox hb = new HBox();
+        
+        Button buy_button = new Button("BUY");
+        buy_button.setMinWidth(200);
+        buy_button.setMinHeight(40);
+        Button sell_button = new Button("SELL");
+        sell_button.setMinWidth(200);
+        sell_button.setMinHeight(40);
+        Button account_button = new Button("ACCOUNT");
+        account_button.setMinWidth(200);
+        account_button.setMinHeight(40);
+        
+        buy_button.setOnMouseClicked((MouseEvent e) -> {
+            bp.setCenter(null);
+            // TODO:
+            // bp.setCenter(new BuyGUI());
+        });
+        
+        sell_button.setOnMouseClicked((MouseEvent e) -> {
+            bp.setCenter(null);
+            // TODO:
+            // bp.setCenter(new SellGUI());
+        });
+        
+        account_button.setOnMouseClicked((MouseEvent e) -> {
+            bp.setCenter(null);
+            bp.setCenter(new AccountGUI());
+        });
+        
+        hb.getChildren().addAll(buy_button, sell_button, account_button);
+        vb.getChildren().addAll(title, hb);
+        
+        bp.setTop(vb);
+        Scene scene = new Scene(bp, 600, 400);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
