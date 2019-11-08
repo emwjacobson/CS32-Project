@@ -17,6 +17,7 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 
 public class AccountGUI extends BorderPane {
     
@@ -45,8 +46,14 @@ public class AccountGUI extends BorderPane {
             Accordion a = new Accordion();
             ArrayList<Textbook> items = DatabaseManager.getItems();
             for (Textbook i : items) {
-                BorderPane pane = new BorderPane();
-                TitledPane t = new TitledPane(i.getTitle(), pane);
+                BorderPane bp = new BorderPane();
+                Text info = new Text();
+                info.setText("Class: " + i.getCourseDept() + i.getCourseNum() + "\n" +
+                        "Title: " + i.getTitle() + ", Edition " + i.getEdNum() + ", Condition: " + i.getCondn() + "\n" +
+                        "Description:\n" + i.getDescr() + "\n" +
+                        "Price: " + i.getPrice());
+                bp.setLeft(info);
+                TitledPane t = new TitledPane(i.getTitle(), bp);
                 t.setText((i.getIsSold() ? "SOLD: " : "") + i.getCourseDept() + " " + i.getCourseNum() + " - " + i.getTitle());
                 a.getPanes().add(t);
             }
