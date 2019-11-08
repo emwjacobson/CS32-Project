@@ -6,18 +6,70 @@
  */
 package cs32.project.GUIs;
 
+import cs32.project.Classes.DatabaseManager;
+import cs32.project.Classes.Textbook;
+import java.util.ArrayList;
+import javafx.geometry.Pos;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TitledPane;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
-/**
- *
- * @author Emerson
- */
 public class AccountGUI extends BorderPane {
     
     public AccountGUI() {
-        this.setBottom(new HBox(new Button("View All"), new Button("View Available"), new Button("View Sold"), new Button("My Info")));
+        HBox bottom = new HBox();
+        bottom.setAlignment(Pos.CENTER);
+        
+        Button view_all = new Button("View All");
+        view_all.setMinWidth(150);
+        view_all.setMinHeight(40);
+        Button view_avail = new Button("View Available");
+        view_avail.setMinWidth(150);
+        view_avail.setMinHeight(40);
+        Button view_sold = new Button("View Sold");
+        view_sold.setMinWidth(150);
+        view_sold.setMinHeight(40);
+        Button my_info = new Button("My Info");
+        my_info.setMinWidth(150);
+        my_info.setMinHeight(40);
+        
+        view_all.setOnMouseClicked((MouseEvent e) -> {
+            this.setCenter(null);
+            ScrollPane scroll = new ScrollPane();
+            scroll.setFitToWidth(true);
+            
+            Accordion a = new Accordion();
+            ArrayList<Textbook> items = DatabaseManager.getItems();
+            for (Textbook i : items) {
+                BorderPane pane = new BorderPane();
+                TitledPane t = new TitledPane(i.getTitle(), pane);
+                t.setText((i.getIsSold() ? "SOLD: " : "") + i.getCourseDept() + " " + i.getCourseNum() + " - " + i.getTitle());
+                a.getPanes().add(t);
+            }
+            
+            scroll.setContent(a);
+            this.setCenter(scroll);
+        });
+        
+        view_avail.setOnMouseClicked((MouseEvent e) -> {
+            this.setCenter(null);
+        });
+        
+        view_sold.setOnMouseClicked((MouseEvent e) -> {
+            this.setCenter(null);
+        });
+        
+        my_info.setOnMouseClicked((MouseEvent e) -> {
+            this.setCenter(null);
+        });
+        
+        bottom.getChildren().addAll(view_all, view_avail, view_sold, my_info);
+        
+        this.setBottom(bottom);
     }
     
 }

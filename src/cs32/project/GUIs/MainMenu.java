@@ -50,6 +50,8 @@ public class MainMenu extends Application {
         account_button.setMinWidth(200);
         account_button.setMinHeight(40);
         
+        AccountGUI acctGUI = new AccountGUI();
+        
         buy_button.setOnMouseClicked((MouseEvent e) -> {
             bp.setCenter(null);
             // TODO:
@@ -64,8 +66,11 @@ public class MainMenu extends Application {
         
         account_button.setOnMouseClicked((MouseEvent e) -> {
             bp.setCenter(null);
-            bp.setCenter(new AccountGUI());
+            bp.setCenter(acctGUI);
         });
+        
+        // Sets the default page
+        bp.setCenter(acctGUI);
         
         hb.getChildren().addAll(buy_button, sell_button, account_button);
         vb.getChildren().addAll(title, hb);

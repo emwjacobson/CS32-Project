@@ -41,30 +41,30 @@ public class Textbook {
         this.isSold = false;
     }
     
-    // Mutators
-    private String getCourseDept() { return courseDept; }
-    private String getCourseNum() { return courseNum; }
-    private String getTitle() { return title; } 
-    private String getEdNum() { return edNum; }
-    private String getDescr() { return descr; }
-    private Condition getCondn() { return condn; }
-    private double getPrice() { return price; }
-    private boolean getIsSold() { return isSold; }
-    private Account getSeller() { return seller; }
-    
     // Accessors
-    private void setCourseDept(String courseDept) { this.courseDept = courseDept; }
-    private void setCourseNum(String courseNum) { this.courseNum = courseNum; }
-    private void setTitle(String title) { this.title = title; }
-    private void setEdNum(String edNum) { this.edNum = edNum; }
-    private void setDescr(String descr) { this.descr = descr; }
-    private void setCondn(Condition condn) { this.condn = condn; }
-    private void setPrice(double price) { this.price = price; }
-    private void setIsSold(boolean isSold) { this.isSold = isSold; }
+    public String getCourseDept() { return courseDept; }
+    public String getCourseNum() { return courseNum; }
+    public String getTitle() { return title; } 
+    public String getEdNum() { return edNum; }
+    public String getDescr() { return descr; }
+    public Condition getCondn() { return condn; }
+    public double getPrice() { return price; }
+    public boolean getIsSold() { return isSold; }
+    public Account getSeller() { return seller; }
+    
+    // Mutators
+    public void setCourseDept(String courseDept) { this.courseDept = courseDept; }
+    public void setCourseNum(String courseNum) { this.courseNum = courseNum; }
+    public void setTitle(String title) { this.title = title; }
+    public void setEdNum(String edNum) { this.edNum = edNum; }
+    public void setDescr(String descr) { this.descr = descr; }
+    public void setCondn(Condition condn) { this.condn = condn; }
+    public void setPrice(double price) { this.price = price; }
+    public void setIsSold(boolean isSold) { this.isSold = isSold; }
     
     // Methods for Images Vector
-    private Image getImage(int i) { return images.get(i); }
+    public Image getImage(int i) { return images.get(i); }
     private void addImage(Image addMe) { images.add(addMe); }
-    private void delImage(Image delMe) { images.remove(delMe); }
+    public void delImage(Image delMe) { images.remove(delMe); }
     
 }
