@@ -20,14 +20,14 @@ public class DatabaseManager {
     public ArrayList<Textbook> getItems() {
         // TODO: Actually pull from DB.
         ArrayList<Textbook> arr = new ArrayList<>();
-        arr.add(new Textbook());
+        arr.add(new Textbook("CSCI", "32", "Advanced Java", "1", "This is the description.", Textbook.Condition.New, 99.99));
         return arr;
     }
     
     public ArrayList<Textbook> getItems(String query) {
         // TODO: Actually pull from DB.
         ArrayList<Textbook> arr = new ArrayList<>();
-        arr.add(new Textbook());
+        arr.add(new Textbook("CSCI", "32", "Advanced Java", "1", "This is the description.", Textbook.Condition.New, 99.99));
         return arr;
     }
     
