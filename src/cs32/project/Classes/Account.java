@@ -1,18 +1,9 @@
-/*
- * Emerson Jacobson
- * CS23, Section #0169
- * Assignment #, Problem #
- * INSERT SUMMARY HERE
- */
+
 package cs32.project.Classes;
 
 import java.util.ArrayList;
 import java.util.concurrent.locks.ReentrantLock;
 
-/**
- *
- * @author Emerson
- */
 public class Account {
     private String fname;
     private String lname;

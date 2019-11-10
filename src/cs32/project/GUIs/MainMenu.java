@@ -1,9 +1,4 @@
-/*
- * Emerson Jacobson
- * CS23, Section #0169
- * Assignment #, Problem #
- * INSERT SUMMARY HERE
- */
+
 package cs32.project.GUIs;
 
 import cs32.project.Classes.Account;
@@ -19,10 +14,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-/**
- *
- * @author Emerson
- */
 public class MainMenu extends Application {
     
     public static Account current_user;

@@ -1,15 +1,8 @@
-/*
- * Emerson Jacobson
- * CS23, Section #0169
- * Assignment #, Problem #
- * INSERT SUMMARY HERE
- */
+
 package cs32.project.GUIs;
 
-import cs32.project.Classes.DatabaseManager;
 import cs32.project.Classes.Textbook;
 import java.util.ArrayList;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;

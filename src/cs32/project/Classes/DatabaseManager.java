@@ -1,12 +1,6 @@
-/*
- * Emerson Jacobson
- * CS23, Section #0169
- * Assignment #, Problem #
- * INSERT SUMMARY HERE
- */
+
 package cs32.project.Classes;
 
-import cs32.project.GUIs.MainMenu;
 import java.util.ArrayList;
 
 public class DatabaseManager {
