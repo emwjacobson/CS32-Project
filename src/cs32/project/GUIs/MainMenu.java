@@ -6,6 +6,7 @@
  */
 package cs32.project.GUIs;
 
+import cs32.project.Classes.Account;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -24,12 +25,17 @@ import javafx.stage.Stage;
  */
 public class MainMenu extends Application {
     
+    public static Account current_user;
+    
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        // TODO: Some kind of login?
+        current_user = new Account("Some", "Student", "18001112222");
+        
         BorderPane bp = new BorderPane();
         
         VBox vb = new VBox();

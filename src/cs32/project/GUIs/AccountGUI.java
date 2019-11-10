@@ -9,6 +9,7 @@ package cs32.project.GUIs;
 import cs32.project.Classes.DatabaseManager;
 import cs32.project.Classes.Textbook;
 import java.util.ArrayList;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
@@ -44,14 +45,15 @@ public class AccountGUI extends BorderPane {
             scroll.setFitToWidth(true);
             
             Accordion a = new Accordion();
-            ArrayList<Textbook> items = DatabaseManager.getItems();
+            ArrayList<Textbook> items = MainMenu.current_user.getAllTextbooks();
             for (Textbook i : items) {
                 BorderPane bp = new BorderPane();
                 Text info = new Text();
                 info.setText("Class: " + i.getCourseDept() + i.getCourseNum() + "\n" +
                         "Title: " + i.getTitle() + ", Edition " + i.getEdNum() + ", Condition: " + i.getCondn() + "\n" +
                         "Description:\n" + i.getDescr() + "\n" +
-                        "Price: " + i.getPrice());
+                        "Price: " + i.getPrice() + "\n" + 
+                        "Seller: " + i.getSeller().getFullName());
                 bp.setLeft(info);
                 TitledPane t = new TitledPane(i.getTitle(), bp);
                 t.setText((i.getIsSold() ? "SOLD: " : "") + i.getCourseDept() + " " + i.getCourseNum() + " - " + i.getTitle());
@@ -64,14 +66,60 @@ public class AccountGUI extends BorderPane {
         
         view_avail.setOnMouseClicked((MouseEvent e) -> {
             this.setCenter(null);
+            ScrollPane scroll = new ScrollPane();
+            scroll.setFitToWidth(true);
+            
+            Accordion a = new Accordion();
+            ArrayList<Textbook> items = MainMenu.current_user.getForSale();
+            for (Textbook i : items) {
+                BorderPane bp = new BorderPane();
+                Text info = new Text();
+                info.setText("Class: " + i.getCourseDept() + i.getCourseNum() + "\n" +
+                        "Title: " + i.getTitle() + ", Edition " + i.getEdNum() + ", Condition: " + i.getCondn() + "\n" +
+                        "Description:\n" + i.getDescr() + "\n" +
+                        "Price: " + i.getPrice() + "\n" + 
+                        "Seller: " + i.getSeller().getFullName());
+                bp.setLeft(info);
+                TitledPane t = new TitledPane(i.getTitle(), bp);
+                t.setText((i.getIsSold() ? "SOLD: " : "") + i.getCourseDept() + " " + i.getCourseNum() + " - " + i.getTitle());
+                a.getPanes().add(t);
+            }
+            
+            scroll.setContent(a);
+            this.setCenter(scroll);
         });
         
         view_sold.setOnMouseClicked((MouseEvent e) -> {
             this.setCenter(null);
+            ScrollPane scroll = new ScrollPane();
+            scroll.setFitToWidth(true);
+            
+            Accordion a = new Accordion();
+            ArrayList<Textbook> items = MainMenu.current_user.getSold();
+            for (Textbook i : items) {
+                BorderPane bp = new BorderPane();
+                Text info = new Text();
+                info.setText("Class: " + i.getCourseDept() + i.getCourseNum() + "\n" +
+                        "Title: " + i.getTitle() + ", Edition " + i.getEdNum() + ", Condition: " + i.getCondn() + "\n" +
+                        "Description:\n" + i.getDescr() + "\n" +
+                        "Price: " + i.getPrice() + "\n" + 
+                        "Seller: " + i.getSeller().getFullName());
+                bp.setLeft(info);
+                TitledPane t = new TitledPane(i.getTitle(), bp);
+                t.setText((i.getIsSold() ? "SOLD: " : "") + i.getCourseDept() + " " + i.getCourseNum() + " - " + i.getTitle());
+                a.getPanes().add(t);
+            }
+            
+            scroll.setContent(a);
+            this.setCenter(scroll);
         });
         
         my_info.setOnMouseClicked((MouseEvent e) -> {
             this.setCenter(null);
+            Text t = new Text("Name: " + MainMenu.current_user.getFullName() + "\n" + 
+                              "Phone: " + MainMenu.current_user.getPhone() + "\n" +
+                              "Textbooks sold: " + MainMenu.current_user.getAllTextbooks().size());
+            this.setCenter(t);
         });
         
         bottom.getChildren().addAll(view_all, view_avail, view_sold, my_info);

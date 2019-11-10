@@ -20,11 +20,25 @@ public class Account {
     // As stated in the ArrayList decleration, using multiple threads might be a problem
     // with ArrayLists.
     private ArrayList<Textbook> books;
-    private ReentrantLock lock;
+    private ReentrantLock lock = new ReentrantLock();
     
-    public Account() {
-        
+    public Account(String fname, String lname, String phone) {
+        this.fname = fname;
+        this.lname = lname;
+        this.phone = phone;
+        // Get textbooks from DB
+        this.lock.lock();
+        try {
+            this.books = DatabaseManager.getAllItemsFromUser(this);
+        } finally {
+            this.lock.unlock();
+        }
     }
+    
+    public String getFirstName() { return this.fname; }
+    public String getLastName() { return this.lname; }
+    public String getFullName() { return this.fname + " " + this.lname; }
+    public String getPhone() { return this.phone; }
     
     public void addTextbook(Textbook tb) {
         this.lock.lock();
@@ -44,27 +58,25 @@ public class Account {
         }
     }
     
-    public ArrayList<Textbook> showAll() {
+    public ArrayList<Textbook> getAllTextbooks() {
         // Clone the list instead of giving the full array reference.
         return (ArrayList<Textbook>)this.books.clone();
     }
     
     // TODO: This is unfinished, will currently return all textbooks.
-    public ArrayList<Textbook> showForSale() {
+    public ArrayList<Textbook> getForSale() {
         ArrayList<Textbook> rtn = (ArrayList<Textbook>)this.books.clone();
         
-        // TODO: Remove dis
-        // rtn.removeIf(bk -> (bk.getIsSold()));
+         rtn.removeIf(bk -> (bk.getIsSold()));
         
         return rtn;
     }
     
     // TODO: This is unfinished, will currently return all textbooks.
-    public ArrayList<Textbook> showSold() {
+    public ArrayList<Textbook> getSold() {
         ArrayList<Textbook> rtn = (ArrayList<Textbook>)this.books.clone();
         
-        // TODO: Remove dis
-//        rtn.removeIf(bk -> (!bk.getIsSold()));
+        rtn.removeIf(bk -> (!bk.getIsSold()));
         
         return rtn;
     }

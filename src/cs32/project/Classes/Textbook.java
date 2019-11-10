@@ -31,6 +31,10 @@ public class Textbook {
       
     // Constructor
     Textbook(String courseDept, String courseNum, String title, String edNum, String descr, Condition condn, double price) {
+        this(courseDept, courseNum, title, edNum, descr, condn, price, null);
+    }
+    
+    Textbook(String courseDept, String courseNum, String title, String edNum, String descr, Condition condn, double price, Account seller) {
         this.courseDept = courseDept;
         this.courseNum = courseNum;
         this.title = title;
@@ -39,6 +43,7 @@ public class Textbook {
         this.condn = condn;
         this.price = price;
         this.isSold = false;
+        this.seller = seller;
     }
     
     // Accessors
