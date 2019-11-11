@@ -1,4 +1,9 @@
-
+/*
+ * Emerson Jacobson & Alice Li
+ * CS23, Section #0169
+ * Assignment: Team Project
+ * Summary: 
+ */
 package cs32.project.Classes;
 
 import java.util.ArrayList;
