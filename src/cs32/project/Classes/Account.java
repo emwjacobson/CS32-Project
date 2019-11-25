@@ -33,6 +33,11 @@ public class Account {
         }
     }
     
+    public Account(int id) {
+        // TODO: Pull info from DB based on ID
+        this(id, "fname", "lname", "phone");
+    }
+    
     public String getFirstName() { return this.fname; }
     public String getLastName() { return this.lname; }
     public String getFullName() { return this.fname + " " + this.lname; }

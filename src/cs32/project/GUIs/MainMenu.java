@@ -31,12 +31,12 @@ public class MainMenu extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         // TODO: Some kind of login?
-        current_user = new Account(-1, "Some", "Student", "18001112222");
+        current_user = new Account(1, "Some", "Student", "18001112222");
         
         // Sets the default page
         BorderPane bp = new BorderPane();
-        AccountGUI acctGUI = new AccountGUI();
-        bp.setCenter(acctGUI);
+        BuyGUI buyGUI = new BuyGUI();
+        bp.setCenter(buyGUI);
         
         // Label for title
         Label title = new Label("El Camino Student Used Textbook Portal");
@@ -56,7 +56,7 @@ public class MainMenu extends Application {
 
         buy_button.setOnMouseClicked((MouseEvent e) -> {
             bp.setCenter(null);
-            bp.setCenter(new BuyGUI());
+            bp.setCenter(buyGUI);
         });
         
         sell_button.setOnMouseClicked((MouseEvent e) -> {
@@ -66,7 +66,7 @@ public class MainMenu extends Application {
         
         account_button.setOnMouseClicked((MouseEvent e) -> {
             bp.setCenter(null);
-            bp.setCenter(acctGUI);
+            bp.setCenter(new AccountGUI());
         });
        
         // HBox for main menu buttons
@@ -80,7 +80,7 @@ public class MainMenu extends Application {
         vb.getChildren().addAll(title, hb);
         vb.setAlignment(Pos.CENTER);
         bp.setTop(vb);
-        Scene scene = new Scene(bp, 600, 450);
+        Scene scene = new Scene(bp, 600, 600);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

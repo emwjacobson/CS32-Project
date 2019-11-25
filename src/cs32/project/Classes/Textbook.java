@@ -6,8 +6,9 @@
  */
 package cs32.project.Classes;
 
-import java.awt.Image;
+
 import java.util.ArrayList;
+import javafx.scene.image.Image;
 
 public class Textbook {
 
@@ -26,7 +27,7 @@ public class Textbook {
     private Condition condn; // Condition
     private double price; // Price
     private boolean isSold; // True if  sold, false if still for sale
-    private ArrayList<Image> images; // Images
+    private ArrayList<Image> images = new ArrayList<>(); // Images
     private Account seller; // Seller
 
     public Textbook(String courseDept, String courseNum, String title, String edNum, String descr, Condition condn, double price, Account seller) {
@@ -116,7 +117,7 @@ public class Textbook {
         return images.get(i);
     }
 
-    private void addImage(Image addMe) {
+    public void addImage(Image addMe) {
         images.add(addMe);
     }
 
