@@ -17,7 +17,7 @@ public class Textbook {
         Used,
         Worn
     }
-
+    // CREATE TABLE books (id INT PRIMARY KEY, title VARCHAR(128), courseDept VARCHAR(32), courseNum INT, edNum INT, descr LONGTEXT, cond INT, price DOUBLE, isSold TINYINT(1), images LONGBLOB, seller VARCHAR(128));
     private String courseDept; // Course Department
     private String courseNum; // Course Number
     private String title; // Textbook Title
@@ -29,12 +29,7 @@ public class Textbook {
     private ArrayList<Image> images; // Images
     private Account seller; // Seller
 
-    // Constructor
-    Textbook(String courseDept, String courseNum, String title, String edNum, String descr, Condition condn, double price) {
-        this(courseDept, courseNum, title, edNum, descr, condn, price, null);
-    }
-
-    Textbook(String courseDept, String courseNum, String title, String edNum, String descr, Condition condn, double price, Account seller) {
+    public Textbook(String courseDept, String courseNum, String title, String edNum, String descr, Condition condn, double price, Account seller) {
         this.courseDept = courseDept;
         this.courseNum = courseNum;
         this.title = title;

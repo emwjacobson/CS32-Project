@@ -31,7 +31,7 @@ public class MainMenu extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         // TODO: Some kind of login?
-        current_user = new Account("Some", "Student", "18001112222");
+        current_user = new Account(-1, "Some", "Student", "18001112222");
         
         // Sets the default page
         BorderPane bp = new BorderPane();

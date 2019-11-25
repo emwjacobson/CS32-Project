@@ -7,6 +7,7 @@
 package cs32.project.GUIs;
 
 import cs32.project.Classes.*;
+import cs32.project.Classes.Textbook.Condition;
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
 import javafx.event.*;
@@ -69,7 +70,10 @@ public class SellGUI extends BorderPane implements AllCourses {
         Button button = new Button("Done");
         button.setPrefSize(75, 25);
         button.setOnAction((ActionEvent ae) -> {
-            // TODO: Submit to database
+            String cond2 = (String)cond.getValue();
+            cond2 = cond2.replaceAll("\\s+", "");
+            Textbook tb = new Textbook((String)dept.getValue(), (String)cnum.getValue(), title.getText(), ednum.getText(), descr.getText(), Condition.valueOf(cond2), Double.parseDouble(price.getText()), MainMenu.current_user);
+            DatabaseManager.addItem(tb);
         });
 
         // Gridpane to for sell form

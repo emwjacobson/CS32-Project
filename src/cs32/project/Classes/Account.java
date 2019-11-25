@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Account {
+    private int id;
     private String fname;
     private String lname;
     private String phone;
@@ -18,7 +19,8 @@ public class Account {
     private ArrayList<Textbook> books;
     private ReentrantLock lock = new ReentrantLock();
     
-    public Account(String fname, String lname, String phone) {
+    public Account(int id, String fname, String lname, String phone) {
+        this.id = id;
         this.fname = fname;
         this.lname = lname;
         this.phone = phone;
@@ -35,6 +37,7 @@ public class Account {
     public String getLastName() { return this.lname; }
     public String getFullName() { return this.fname + " " + this.lname; }
     public String getPhone() { return this.phone; }
+    public int getId() { return this.id; }
     
     public void addTextbook(Textbook tb) {
         this.lock.lock();
