@@ -27,7 +27,8 @@ public class Account {
         // Get textbooks from DB
         this.lock.lock();
         try {
-            this.books = DatabaseManager.getAllItemsFromUser(this);
+//            this.books = DatabaseManager.getAllItemsFromUser(this);
+            this.books = new ArrayList<Textbook>();
         } finally {
             this.lock.unlock();
         }

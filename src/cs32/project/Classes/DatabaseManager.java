@@ -7,6 +7,7 @@
 package cs32.project.Classes;
 
 import cs32.project.Classes.Textbook.Condition;
+import cs32.project.GUIs.MainMenu;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -97,14 +98,31 @@ public class DatabaseManager {
     
     public static ArrayList<Textbook> getAllItemsFromUser(Account acct) {
         // TODO: Actually pull from DB.
-        ArrayList<Textbook> arr = new ArrayList<>();
-        for(int i=0; i<30; i++){
-            arr.add(new Textbook("CSCI", "32", "Advanced Java", "1", "This is the description.", Textbook.Condition.New, 99.99, acct));
-            Textbook tb = new Textbook("CSCI", "32", "Advanced Java", "1", "This is the description.", Textbook.Condition.New, 99.99, acct);
-            tb.setIsSold(true);
-            arr.add(tb);
+//        ArrayList<Textbook> arr = new ArrayList<>();
+//        for(int i=0; i<30; i++){
+//            arr.add(new Textbook("CSCI", "32", "Advanced Java", "1", "This is the description.", Textbook.Condition.New, 99.99, acct));
+//            Textbook tb = new Textbook("CSCI", "32", "Advanced Java", "1", "This is the description.", Textbook.Condition.New, 99.99, acct);
+//            tb.setIsSold(true);
+//            arr.add(tb);
+//        }
+//        return (ArrayList<Textbook>)arr.clone();
+        ArrayList<Textbook> tbs = new ArrayList<>();
+        try {
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM books WHERE seller = ?;");
+            ps.setInt(1, acct.getId());
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                Textbook tb = new Textbook(rs.getString("courseDept"), String.valueOf(rs.getInt("courseNum")), rs.getString("title"), rs.getString("edNum"), rs.getString("descr"), Condition.values()[rs.getInt("cond")], rs.getDouble("price"), new Account(rs.getInt("seller")));
+                BufferedImage img = ImageIO.read(rs.getBinaryStream("images"));
+                tb.addImage(SwingFXUtils.toFXImage(img, null));
+                tbs.add(tb);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return (ArrayList<Textbook>)arr.clone();
+        return tbs;
     }
     
     public static ArrayList<Textbook> getAllSoldItemsFromUser(Account acct) {

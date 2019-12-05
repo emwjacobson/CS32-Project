@@ -28,6 +28,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
 public class AccountGUI extends BorderPane {
+    
+    ArrayList<Textbook> all_tbs;
 
     public AccountGUI() {
 
@@ -61,6 +63,8 @@ public class AccountGUI extends BorderPane {
         iv.setPreserveRatio(true);
         Pane imgp = new Pane(iv);
         imgp.setPrefSize(200,200); 
+        
+        all_tbs = DatabaseManager.getAllItemsFromUser(MainMenu.current_user);
 
         // Default displays My Info
         Text show = new Text("Name: " + MainMenu.current_user.getFullName() + "\n"
@@ -75,11 +79,13 @@ public class AccountGUI extends BorderPane {
             // Update components
             title.setText("ALL");
             list.getItems().clear();
-            list.getItems().addAll(""); // TODO: Retrieve all Textbook objects from database and add to list
+            for(Textbook tb : all_tbs) {
+                list.getItems().add(tb.getTitle());
+            }
 
             list.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> ov, String old_val, String new_val) -> {
                 // TODO: Display selected Textbook details retrieved from database
-                text.setText("");
+                text.setText(list.getItems().get(list.getSelectionModel().getSelectedIndex()));
             });
 
             // Setup GridPane
