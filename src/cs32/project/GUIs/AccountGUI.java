@@ -12,13 +12,10 @@ import javafx.beans.value.ObservableValue;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TitledPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -30,6 +27,8 @@ import javafx.scene.text.Text;
 public class AccountGUI extends BorderPane {
     
     ArrayList<Textbook> all_tbs;
+    ArrayList<Textbook> sold_tbs;
+    ArrayList<Textbook> unsold_tbs;
 
     public AccountGUI() {
 
@@ -52,7 +51,8 @@ public class AccountGUI extends BorderPane {
         ListView<String> list = new ListView<>();
         list.setPrefSize(575, 150);
         list.getItems().add("");
-        TextField text = new TextField();
+        TextArea text = new TextArea();
+        text.setWrapText(true);
         text.setPrefSize(350, 200);
         text.setEditable(false);
         
@@ -65,11 +65,15 @@ public class AccountGUI extends BorderPane {
         imgp.setPrefSize(200,200); 
         
         all_tbs = DatabaseManager.getAllItemsFromUser(MainMenu.current_user);
-
+        sold_tbs = ((ArrayList<Textbook>)all_tbs.clone());
+        sold_tbs.removeIf((Textbook tb) -> !tb.getIsSold());
+        unsold_tbs = ((ArrayList<Textbook>)all_tbs.clone());
+        unsold_tbs.removeIf((Textbook tb) -> tb.getIsSold());
+        
         // Default displays My Info
         Text show = new Text("Name: " + MainMenu.current_user.getFullName() + "\n"
                 + "Phone: " + MainMenu.current_user.getPhone() + "\n"
-                + "Textbooks sold: " + MainMenu.current_user.getAllTextbooks().size());
+                + "Textbooks sold: " + sold_tbs.size());
         this.setCenter(show);
 
         // Button MouseEvents       
@@ -79,13 +83,18 @@ public class AccountGUI extends BorderPane {
             // Update components
             title.setText("ALL");
             list.getItems().clear();
-            for(Textbook tb : all_tbs) {
+            text.clear();
+            iv.setImage(null);
+            for (Textbook tb : all_tbs) {
                 list.getItems().add(tb.getTitle());
             }
 
             list.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> ov, String old_val, String new_val) -> {
-                // TODO: Display selected Textbook details retrieved from database
-                text.setText(list.getItems().get(list.getSelectionModel().getSelectedIndex()));
+                if (list.getSelectionModel().getSelectedIndex() < 0 || list.getSelectionModel().getSelectedIndex() > all_tbs.size())
+                    return;
+                Textbook selected_book = all_tbs.get(list.getSelectionModel().getSelectedIndex());
+                text.setText(selected_book.getDescr());
+                iv.setImage(selected_book.getImage(0));
             });
 
             // Setup GridPane
@@ -109,11 +118,18 @@ public class AccountGUI extends BorderPane {
             // Update components
             title.setText("AVAILABLE");
             list.getItems().clear();
-            list.getItems().addAll(""); // TODO: Retrieve all Textbook objects from database and add to list
+            text.clear();
+            iv.setImage(null);
+            for (Textbook tb : unsold_tbs) {
+                    list.getItems().add(tb.getTitle());
+            }
 
             list.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> ov, String old_val, String new_val) -> {
-                // TODO: Display selected Textbook details retrieved from database
-                text.setText("");
+                if (list.getSelectionModel().getSelectedIndex() < 0 || list.getSelectionModel().getSelectedIndex() > unsold_tbs.size())
+                    return;
+                Textbook selected = unsold_tbs.get(list.getSelectionModel().getSelectedIndex());
+                text.setText(selected.getDescr());
+                iv.setImage(selected.getImage(0));
             });
 
             // Setup GridPane
@@ -137,11 +153,17 @@ public class AccountGUI extends BorderPane {
             // Update components
             title.setText("SOLD");
             list.getItems().clear();
-            list.getItems().addAll(""); // TODO: Retrieve all Textbook objects from database and add to list
-
+            text.clear();
+            iv.setImage(null);
+            for(Textbook tb : sold_tbs)
+                list.getItems().add(tb.getTitle());
+            
             list.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> ov, String old_val, String new_val) -> {
-                // TODO: Display selected Textbook details retrieved from database
-                text.setText("");
+                if (list.getSelectionModel().getSelectedIndex() < 0 || list.getSelectionModel().getSelectedIndex() > sold_tbs.size())
+                    return;
+                Textbook selected = sold_tbs.get(list.getSelectionModel().getSelectedIndex());
+                text.setText(selected.getDescr());
+                iv.setImage(selected.getImage(0));
             });
 
             // Setup GridPane
@@ -163,7 +185,7 @@ public class AccountGUI extends BorderPane {
             this.setCenter(null);
             Text t = new Text("Name: " + MainMenu.current_user.getFullName() + "\n"
                     + "Phone: " + MainMenu.current_user.getPhone() + "\n"
-                    + "Textbooks sold: " + MainMenu.current_user.getAllTextbooks().size());
+                    + "Textbooks sold: " + sold_tbs.size());
             this.setCenter(t);
         });
 

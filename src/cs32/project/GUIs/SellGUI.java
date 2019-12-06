@@ -102,6 +102,10 @@ public class SellGUI extends BorderPane implements AllCourses {
             Textbook tb = new Textbook((String)dept.getValue(), (String)cnum.getValue(), title.getText(), ednum.getText(), descr.getText(), Textbook.Condition.valueOf(cond2), Double.parseDouble(price.getText()), MainMenu.current_user);
             tb.addImage(iv.getImage());
             DatabaseManager.addItem(tb);
+            title.setText("");
+            ednum.setText("");
+            descr.setText("");
+            price.setText("");
         });
         
         // Labels

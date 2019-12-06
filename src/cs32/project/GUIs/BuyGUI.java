@@ -18,6 +18,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -43,7 +44,8 @@ public class BuyGUI extends BorderPane implements AllCourses {
         results.getItems().add("");
 
         // Create TextField to display details
-        TextField details = new TextField();
+        TextArea details = new TextArea();
+        details.setWrapText(true);
         details.setPrefSize(250, 225);
         details.setEditable(false);
         
@@ -58,6 +60,8 @@ public class BuyGUI extends BorderPane implements AllCourses {
 
         // Listeners
         dept.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> ov, String old_val, String new_val) -> {
+            if (dept.getSelectionModel().getSelectedIndex() == -1)
+                return;
             int index = dept.getSelectionModel().getSelectedIndex();
             cnum.getItems().clear();
             cnum.getItems().addAll((String[]) allCourses[index]);
@@ -75,7 +79,12 @@ public class BuyGUI extends BorderPane implements AllCourses {
         results.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> ov, String old_val, String new_val) -> {
             // TODO: This throws an arrayoutofbounds when dept is changed
             Textbook tb = current_tbs.get(results.getSelectionModel().getSelectedIndex());
-            details.setText(tb.getDescr());
+            String desc = "Book Info: \n" +
+                          "\tDescription: " + tb.getDescr() + "\n\n" + 
+                          "Seller Info: \n" +
+                          "\tName: " + tb.getSeller().getFullName() + "\n" +
+                          "\tPhone: " + tb.getSeller().getPhone();
+            details.setText(desc);
             iv.setImage(tb.getImage(0));
         });
 
