@@ -60,7 +60,7 @@ public class BuyGUI extends BorderPane implements AllCourses {
 
         // Listeners
         dept.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> ov, String old_val, String new_val) -> {
-            if (dept.getSelectionModel().getSelectedIndex() == -1)
+            if (dept.getSelectionModel().getSelectedIndex() < 0)
                 return;
             int index = dept.getSelectionModel().getSelectedIndex();
             cnum.getItems().clear();
@@ -68,7 +68,8 @@ public class BuyGUI extends BorderPane implements AllCourses {
         });
 
         cnum.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> ov, String old_val, String new_val) -> {
-            // TODO: Add search results retrieved from database
+            if (cnum.getSelectionModel().getSelectedIndex() < 0)
+                return;
             results.getItems().clear();
             current_tbs = DatabaseManager.getAllItemsForCourse(dept.getSelectionModel().getSelectedItem(), cnum.getSelectionModel().getSelectedItem());
             for (Textbook tb : current_tbs) {
@@ -77,7 +78,8 @@ public class BuyGUI extends BorderPane implements AllCourses {
         });
 
         results.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> ov, String old_val, String new_val) -> {
-            // TODO: This throws an arrayoutofbounds when dept is changed
+            if (results.getSelectionModel().getSelectedIndex() < 0)
+                return;
             Textbook tb = current_tbs.get(results.getSelectionModel().getSelectedIndex());
             String desc = "Book Info: \n" +
                           "\tDescription: " + tb.getDescr() + "\n\n" + 
